@@ -2,7 +2,7 @@
 
 -- changeset JTibaduisa:1
 create table projects(
-	id begin primary key auto_increment not null,
+	id int primary key auto_increment not null,
     name varchar(150) not null,
     priority tinyint(1) not null,
     description text null,

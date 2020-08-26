@@ -4,6 +4,8 @@ import java.util.List;
 
 import co.com.bancobogota.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,20 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.bancobogota.service.IProjectService;
 
 @RestController
-@RequestMapping( "/api/location" )
+@RequestMapping( "/api/projects" )
 public class LocationRestController {
 
 	@Autowired
 	private IProjectService iProjectService;
 
 	@GetMapping
-	@Cacheable( value = "locations" )
+	@Cacheable( value = "projects" )
 	public List<Project> listarTodos() {
 		return iProjectService.listarTodos();
 	}
 
 	@GetMapping( path = "/{id}")
-	@Cacheable( value="location", key="#id")
+	@Cacheable( value="project", key="#id")
 	public Project listarPorId(@PathVariable("id") int id) {
 		System.out.println("Employee fetching from database:: "+id);
 		Project data =  iProjectService.listarPorId(id);
@@ -39,17 +41,19 @@ public class LocationRestController {
 	}
 	
 	@PostMapping
-	public void registrar(@RequestBody Project entidad) {
-		iProjectService.registrar(entidad);
-		
+	public Project registrar(@RequestBody Project entidad) {
+		return iProjectService.registrar(entidad);
 	}
 
 	@PutMapping( path ="/{id}" )
-	public void actualizar(@RequestBody Project entidad) {
-		iProjectService.actualizar(entidad);
+	@CachePut( value = "project", key = "#id")
+	public Project actualizar(@RequestBody Project entidad, @PathVariable String id) {
+		System.out.println("Ejecutando modificación");
+		return iProjectService.actualizar(entidad);
 	}
 	
 	@DeleteMapping( path ="/{id}" )
+	@CacheEvict( value = "project", allEntries = true)
 	public void eliminar(@PathVariable("id") int id) {
 		iProjectService.eliminar(id);
 	}
