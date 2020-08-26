@@ -16,8 +16,8 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table( name = "location")
-public class Location implements Serializable {
+@Table( name = "projects")
+public class Project implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,13 @@ public class Location implements Serializable {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "area_m2", nullable = false)
-	private int area_m2;
+	@Column(name = "priority", nullable = false)
+	private int priority;
 
-	@ManyToOne
-	@JoinColumn(name = "location_id", nullable = true)
-	private Location location;
+	@Column(name = "description", nullable = false)
+	private String description;
+
+	@Column(name = "deliverydate", nullable = false)
+	private String deliveryDate;
+
 }

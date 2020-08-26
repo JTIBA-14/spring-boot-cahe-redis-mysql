@@ -2,31 +2,31 @@ package co.com.bancobogota.service.impl;
 
 import java.util.List;
 
+import co.com.bancobogota.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.com.bancobogota.model.Location;
-import co.com.bancobogota.repository.ILocationRepository;
-import co.com.bancobogota.service.ILocationService;
+import co.com.bancobogota.repository.IProjectRepository;
+import co.com.bancobogota.service.IProjectService;
 
 @Service
-public class LocationServiceImpl implements ILocationService {
+public class ProjectServiceImpl implements IProjectService {
 
 	@Autowired
-	private ILocationRepository repos;
+	private IProjectRepository repos;
 	
 	@Override
-	public List<Location> listarTodos() {
+	public List<Project> listarTodos() {
 		return repos.findAll();
 	}
 
 	@Override
-	public Location listarPorId(int id) {
+	public Project listarPorId(int id) {
 		return repos.findById(id).orElse(null);
 	}
 
 	@Override
-	public Location registrar(Location entidad) {
+	public Project registrar(Project entidad) {
 		try {
 			return repos.save(entidad);
         } catch(Exception e ) {
@@ -35,7 +35,7 @@ public class LocationServiceImpl implements ILocationService {
 	}
 
 	@Override
-	public Location actualizar(Location entidad) {
+	public Project actualizar(Project entidad) {
 		try {
 			return repos.save(entidad);
         } catch(Exception e ) {

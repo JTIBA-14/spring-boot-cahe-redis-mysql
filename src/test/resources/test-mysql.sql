@@ -1,15 +1,15 @@
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS location(
+CREATE TABLE IF NOT EXISTS project(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	name TEXT NOT NULL,
     area_m2 INT,
     location_id INT
 );
 
-DELETE FROM location;
+DELETE FROM project;
 
-INSERT INTO location (id, name, area_m2, location_id ) VALUES
+INSERT INTO project (id, name, area_m2, location_id ) VALUES
 ('1', 'Contabilidad', 24, null),
 ('2', 'Digital', 100, null),
 ('3', 'DevOps', 5, 2);

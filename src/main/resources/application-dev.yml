@@ -10,15 +10,15 @@ spring:
       use-key-prefix: false
 
   jpa:
-    database: postgresql
+    database: MYSQL
     show-sql: true
     hibernate:
       ddl-auto: none
   datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:9822/prueba_exam?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
-    username : postgres
-    password: postgres-exam
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/spring_project_redis?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456789
 
 server:
   port: 6969
