@@ -38,18 +38,18 @@ public class LocationRestController {
 		return data;
 	}
 	
-	@PostMapping( path = "/registrar" )
+	@PostMapping
 	public void registrar(@RequestBody Location entidad) {
 		iLocationService.registrar(entidad);
 		
 	}
 
-	@PutMapping( path ="/actualizar" )
+	@PutMapping( path ="/{id}" )
 	public void actualizar(@RequestBody Location entidad) {
 		iLocationService.actualizar(entidad);
 	}
 	
-	@DeleteMapping( path ="/eliminar/{id}" )
+	@DeleteMapping( path ="/{id}" )
 	public void eliminar(@PathVariable("id") int id) {
 		iLocationService.eliminar(id);
 	}
