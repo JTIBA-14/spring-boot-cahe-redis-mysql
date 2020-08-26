@@ -3,6 +3,7 @@ package co.com.bancobogota.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,22 +19,23 @@ import co.com.bancobogota.service.ILocationService;
 @RestController
 @RequestMapping( "/api/location" )
 public class LocationRestController {
-	
+
 	@Autowired
 	private ILocationService iLocationService;
-	
-	@GetMapping( path = "/listarTodos")
+
+	@GetMapping
+	@Cacheable( value = "locations" )
 	public List<Location> listarTodos() {
 		return iLocationService.listarTodos();
 	}
-	
-	@GetMapping( path = "/listar/{id}")
+
+	@GetMapping( path = "/{id}")
+	@Cacheable( value="location", key="#id")
 	public Location listarPorId(@PathVariable("id") int id) {
-		Location autor =  iLocationService.listarPorId(id);
-		if ( autor == null) {
-			throw new RuntimeException("Element not fount frences-"+id);
-		}
-		return autor;
+		System.out.println("Employee fetching from database:: "+id);
+		Location data =  iLocationService.listarPorId(id);
+		if ( data == null) throw new RuntimeException("Element not fount frences-"+id);
+		return data;
 	}
 	
 	@PostMapping( path = "/registrar" )
