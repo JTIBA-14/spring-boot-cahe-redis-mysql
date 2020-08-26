@@ -1,0 +1,9 @@
+version: '3.1'
+services: 
+  postgres: 
+    environment: 
+      POSTGRES_PASSWORD: postgres-exam
+    image: postgres
+    ports: 
+      - "9822:5432"
+    restart: always

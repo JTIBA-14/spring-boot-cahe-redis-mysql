@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  build_and_test:
+    machine:
+      image: ubuntu-1604:201903-01
+    working_directory: ~/crudapi
+    steps:
+      - checkout
+      - run:
+          name: Install Docker Compose
+          command: |
+            set -x
+            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > docker-compose
+            sudo mv docker-compose /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+      - run:
+          name: install dependencies and exec tests
+          command: |
+            docker-compose -f ./src/main/resource/docker-postgres/docker-compose.yml  up -d
+            docker-compose run javaclient mvn install
+workflows:
+  maven_test:
+    jobs:
+      - build_and_test

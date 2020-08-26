@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:9822/prueba_exam?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username : postgres
+    password: postgres-exam
+
+server:
+  port: 6969
